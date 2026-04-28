@@ -20,12 +20,11 @@ AVAILABLE_TECHNIQUES = ['Shellcode-Loader', 'Process-Hollowing']
 
 def show_banner():
     print(Fore.MAGENTA + Style.BRIGHT + r"""
- ____  _               _               _____
-/ ___|| |__   __ _  __| | _____      _|  ___|__  _ __ __ _  ___
-\___ \| '_ \ / _` |/ _` |/ _ \ \ /\ / | |_ / _ \| '__/ _` |/ _ \
- ___) | | | | (_| | (_| | (_) \ V  V /|  _| (_) | | | (_| |  __/
-|____/|_| |_|\__,_|\__,_|\___/ \_/\_/ |_|  \___/|_|  \__, |\___|
-                                                     |___/      """)
+ ____             _    _   _            _ 
+| __ )  __ _  ___| | _| | | | __ _ _   _| |
+|  _ \ / _` |/ __| |/ / |_| |/ _` | | | | |
+| |_) | (_| | (__|   <|  _  | (_| | |_| | |
+|____/ \__,_|\___|_|\_\_| |_|\__,_|\__,_|_|""")
     print()
     print(Fore.LIGHTMAGENTA_EX + Style.BRIGHT + "  AppLocker bypass + process-injection payload forge")
     print(Fore.LIGHTMAGENTA_EX + Style.BRIGHT + "  Author: Gnanaraj Mauviel  |  https://github.com/0xm3m")
