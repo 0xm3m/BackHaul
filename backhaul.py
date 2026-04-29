@@ -4,6 +4,7 @@ from lib.encrypt import *
 from lib.csharpgen import *
 
 script_path = os.path.dirname(os.path.abspath(__file__))
+output_path = os.getcwd()
 
 def main():
 
@@ -22,66 +23,66 @@ def main():
                 print(Fore.CYAN + Style.BRIGHT + f"[*] Generating Payload for {binary.upper()}!")
 
                 generate_cs_file(binary, encrypted, injection_technique)
-                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{script_path}/payload_{binary}.cs")
+                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{output_path}/payload_{binary}.cs")
 
-                compile = mcs_compile(f"mcs -r:System.Configuration.Install.dll -target:exe -platform:{args.arch} payload_{binary}.cs")
+                compile = mcs_compile(f"mcs -r:System.Configuration.Install.dll -target:exe -platform:{args.arch} {output_path}/payload_{binary}.cs")
                 if(compile):
-                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{script_path}/payload_{binary}")
+                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{output_path}/payload_{binary}")
 
             case "RegAsm":
                 print()
                 print(Fore.CYAN + Style.BRIGHT + f"[*] Generating Payload for {binary.upper()}!")
 
                 generate_cs_file(binary, encrypted, injection_technique)
-                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{script_path}/payload_{binary}.cs")
+                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{output_path}/payload_{binary}.cs")
 
-                compile = mcs_compile(f"mcs -r:System.EnterpriseServices.dll -target:library -platform:{args.arch} -keyfile:lib/key.snk payload_{binary}.cs")
+                compile = mcs_compile(f"mcs -r:System.EnterpriseServices.dll -target:library -platform:{args.arch} -keyfile:{script_path}/lib/key.snk {output_path}/payload_{binary}.cs")
                 if(compile):
-                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{script_path}/payload_{binary}")
+                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{output_path}/payload_{binary}")
 
             case "ProcessHollow":
                 print()
                 print(Fore.CYAN + Style.BRIGHT + f"[*] Generating Payload for {binary.upper()}!")
 
                 generate_cs_file(binary, encrypted, injection_technique)
-                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{script_path}/payload_{binary}.cs")
+                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{output_path}/payload_{binary}.cs")
 
-                compile = mcs_compile(f"mcs -target:exe -platform:{args.arch} payload_{binary}.cs")
+                compile = mcs_compile(f"mcs -target:exe -platform:{args.arch} {output_path}/payload_{binary}.cs")
                 if(compile):
-                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{script_path}/payload_{binary}")
+                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{output_path}/payload_{binary}")
 
             case "ProcessHollow2":
                 print()
                 print(Fore.CYAN + Style.BRIGHT + f"[*] Generating Payload for {binary.upper()}!")
 
                 generate_cs_file(binary, encrypted, injection_technique)
-                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{script_path}/payload_{binary}.cs")
+                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{output_path}/payload_{binary}.cs")
 
-                compile = mcs_compile(f"mcs -target:exe -platform:{args.arch} payload_{binary}.cs")
+                compile = mcs_compile(f"mcs -target:exe -platform:{args.arch} {output_path}/payload_{binary}.cs")
                 if(compile):
-                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{script_path}/payload_{binary}")
+                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{output_path}/payload_{binary}")
 
             case "NTMapInjection-AV":
                 print()
                 print(Fore.CYAN + Style.BRIGHT + f"[*] Generating Payload for {binary.upper()}!")
 
                 generate_cs_file(binary, encrypted, injection_technique)
-                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{script_path}/payload_{binary}.cs")
+                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{output_path}/payload_{binary}.cs")
 
-                compile = mcs_compile(f"mcs -target:exe -platform:{args.arch} payload_{binary}.cs")
+                compile = mcs_compile(f"mcs -target:exe -platform:{args.arch} {output_path}/payload_{binary}.cs")
                 if(compile):
-                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{script_path}/payload_{binary}")
+                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{output_path}/payload_{binary}")
 
             case "NativeProcInjection-AV":
                 print()
                 print(Fore.CYAN + Style.BRIGHT + f"[*] Generating Payload for {binary.upper()}!")
 
                 generate_cs_file(binary, encrypted, injection_technique)
-                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{script_path}/payload_{binary}.cs")
+                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{output_path}/payload_{binary}.cs")
 
-                compile = mcs_compile(f"mcs -target:exe -platform:{args.arch} payload_{binary}.cs")
+                compile = mcs_compile(f"mcs -target:exe -platform:{args.arch} {output_path}/payload_{binary}.cs")
                 if(compile):
-                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{script_path}/payload_{binary}")
+                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{output_path}/payload_{binary}")
 
 
 if __name__ == '__main__':

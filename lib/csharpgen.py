@@ -27,7 +27,7 @@ def generate_cs_file(binary, encrypted, injection_technique):
         template = template.replace('{pinvoke_code}', injection_list['injection_techniques'][f'{injection_technique}']['pinvoke_imports'])
         template = template.replace('{injection_logic}', injection_list['injection_techniques'][f'{injection_technique}']['code'])
 
-    with open(f"{script_path}/../payload_{binary}.cs", "w") as file:
+    with open(os.path.join(os.getcwd(), f"payload_{binary}.cs"), "w") as file:
         file.write(template)
 
 # compile csharp file using mcs
