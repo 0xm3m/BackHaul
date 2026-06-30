@@ -64,6 +64,8 @@ shellcode.add_argument('--custom', required=False, default=False, action='store_
                        help='Use a user-supplied hex shellcode instead of msfvenom (requires --hex-shellcode)')
 shellcode.add_argument('--hex-shellcode', required=False, dest='shellcode', metavar='HEX',
                        help='Hex-encoded shellcode (msfvenom -f hex format). Required with --custom')
+shellcode.add_argument('--shellcode-file', '--c2', required=False, dest='shellcode_file', metavar='PATH',
+                       help='Path to a raw shellcode file (binary bytes). The contents are read, converted to hex, XOR-encrypted, and embedded.')
 
 # msfvenom options
 msf = parser.add_argument_group('msfvenom (used when --custom is not set)')
@@ -82,16 +84,22 @@ injection.add_argument('--technique', '-t', required=False, dest='injection_tech
 
 args = parser.parse_args()
 
-# --custom is mutually exclusive with msfvenom flags
+# --custom and --shellcode-file are mutually exclusive with msfvenom flags
 if args.custom and (args.lh or args.lp or args.payload):
     parser.error("--custom cannot be combined with -lh / -lp / --payload (msfvenom flags).")
+
+if args.shellcode_file and (args.lh or args.lp or args.payload):
+    parser.error("--shellcode-file/--c2 cannot be combined with -lh / -lp / --payload (msfvenom flags).")
+
+if args.custom and args.shellcode_file:
+    parser.error("--custom cannot be combined with --shellcode-file/--c2.")
 
 if args.custom and not args.shellcode:
     parser.error("--hex-shellcode is required when --custom is set.")
 
-# When not using --custom, all three msfvenom flags must be present
-if not args.custom and not (args.lh and args.lp and args.payload):
-    parser.error("-lh, -lp, and --payload are all required when --custom is not set.")
+# When not using --custom or a shellcode file, all three msfvenom flags must be present
+if not args.custom and not args.shellcode_file and not (args.lh and args.lp and args.payload):
+    parser.error("-lh, -lp, and --payload are all required when --custom or --shellcode-file is not set.")
 
 binaries = [b.strip() for b in args.binary.split(",")]
 
