@@ -1,10 +1,20 @@
+import re
 import subprocess
 from lib.init import *
 from lib.args import *
 
 script_path = os.path.dirname(os.path.abspath(__file__))
 
-# generate msfvenom, custom hex, or shellcode file content
+def normalize_shellcode_text(text):
+    cleaned = re.sub(r'[^0-9a-fA-FxX,\s]', '', text)
+    cleaned = cleaned.replace("0x", "").replace("0X", "")
+    cleaned = "".join(cleaned.split()).replace(",", "")
+
+    if cleaned and all(ch in "0123456789abcdefABCDEF" for ch in cleaned):
+        return cleaned.lower()
+
+    return None
+
 def load_shellcode_from_file(path):
     with open(path, "rb") as handle:
         data = handle.read()
@@ -12,26 +22,23 @@ def load_shellcode_from_file(path):
     if not data:
         raise ValueError("shellcode file is empty")
 
-    # Support raw bytes as well as ASCII hex text.
     try:
         text = data.decode("utf-8").strip()
-        if text:
-            cleaned = "".join(text.split())
-            if all(ch in "0123456789abcdefABCDEF" for ch in cleaned):
-                return cleaned
     except UnicodeDecodeError:
-        pass
+        return "".join(f"{b:02x}" for b in data)
+
+    normalized = normalize_shellcode_text(text)
+    if normalized is not None:
+        return normalized
 
     return "".join(f"{b:02x}" for b in data)
 
-# generate msfvenom or custom shellcode
 def choose_shellcode(custom):
     if getattr(args, "shellcode_file", None):
         return load_shellcode_from_file(args.shellcode_file)
 
-    if(custom):
-         shellcode_hex = args.shellcode
-         return shellcode_hex
+    if custom:
+        return args.shellcode
 
 # create csharp file based on input from template
 def generate_cs_file(binary, encrypted, injection_technique):
